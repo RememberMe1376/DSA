@@ -25,7 +25,7 @@ int main()
     {
         int l, r;
         cin >> l >> r;
-        int sum = 0;
+        long long sum = 0;
         for (int i = l; i <= r; i++)
         {
             sum += solve(i);
@@ -33,3 +33,4 @@ int main()
         cout << sum << endl;
     }
 }
+// WA(4/5)
