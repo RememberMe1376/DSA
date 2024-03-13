@@ -6,7 +6,6 @@ int main()
     cin >> t;
     while (t--)
     {
-        pair<int, int> p;
         vector<long long> v;
         int n, m, k;
         cin >> n >> m >> k;
