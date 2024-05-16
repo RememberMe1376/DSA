@@ -2,7 +2,7 @@
 using namespace std;
 int a[10005][10005], check[10005], p[10005];
 int n, s, e, tt, h = 0;
-vector<int> p[10005];
+vector<int> ke[10005];
 void bfs(int u)
 {
     queue<int> q;
@@ -12,7 +12,7 @@ void bfs(int u)
     {
         int x = q.front();
         q.pop();
-        for (int k : p[x])
+        for (int k : ke[x])
         {
             if (!check[k])
             {
@@ -28,11 +28,11 @@ int p1[10005] = {0};
 void dfs(int u)
 {
     vs1[u] = true;
-    for (auto x : p[u])
+    for (auto x : ke[u])
     {
-        if (!vs[x])
+        if (!vs1[x])
         {
-            p[x] = u;
+            p1[x] = u;
             dfs(x);
         }
     }
@@ -45,7 +45,7 @@ void in()
     for (int i = 2; i <= n; i++)
     {
         int en = i;
-        if (!vs[en])
+        if (!vs1[en])
         {
             cout << -1 << endl;
         }
@@ -63,8 +63,43 @@ void in()
                 cout << x << " ";
             cout << endl;
         }
+        memset(check, 0, sizeof check);
+        memset(p, 0, sizeof p);
+        int en1 = i;
+        bfs(en1);
+        if (check[1])
+        {
+            vector<int> b;
+            int en = 1;
+            while (en != en1)
+            {
+                b.push_back(en);
+                en = p[en];
+            }
+            b.push_back(en1);
+            reverse(b.begin(), b.end());
+            for (int it : b)
+                cout << it << " ";
+            cout << endl;
+        }
+        else
+            cout << -1 << endl;
     }
 }
 int main()
 {
+    cin >> n >> tt;
+    for (int i = 0; i <= n; i++)
+        ke[i].clear();
+    memset(a, 0, sizeof a);
+    memset(check, 0, sizeof check);
+    memset(p, 0, sizeof p);
+    while (tt--)
+    {
+        int x, y;
+        cin >> x >> y;
+        ke[x].push_back(y);
+        ke[y].push_back(x);
+    }
+    in();
 }

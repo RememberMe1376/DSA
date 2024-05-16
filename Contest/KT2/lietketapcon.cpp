@@ -1,29 +1,59 @@
 #include <bits/stdc++.h>
 using namespace std;
-void gen(vector<int> &num, vector<string> &s, int pos, string cur)
+
+int n, a[100], ok;
+
+void kt()
 {
-    if (pos == num.size())
+    for (int i = 0; i < n; i++)
     {
-        s.push_back(cur);
-        return;
-    }
-    for (int i = pos; i < num.size(); i++)
-    {
-        cur += to_string(num[i]);
-        gen(num, s, i + 1, cur);
-        cur.erase(cur.size() - to_string(num[i]).size());
+        a[i] = 0;
     }
 }
+
+void sinh()
+{
+    int i = n - 1;
+    while (i >= 0 && a[i] == 1)
+    {
+        a[i] = 0;
+        i--;
+    }
+    if (i == -1)
+    {
+        ok = 0;
+    }
+    else
+    {
+        a[i] = 1;
+    }
+}
+
 int main()
 {
-    int n;
     cin >> n;
-    vector<int> num(n);
+    vector<string> v;
     for (int i = 0; i < n; i++)
-        cin >> num[i];
-    vector<string> s;
-    gen(num, s, 0, "");
-    sort(s.begin(), s.end());
-    for (const string &x : s)
+    {
+        string s;
+        cin >> s;
+        v.push_back(s);
+    }
+    kt();
+    ok = 1;
+    set<string> sstr;
+    while (ok == 1)
+    {
+        string s = "";
+        for (int i = 0; i < n; i++)
+        {
+            if (a[i])
+                s += v[i];
+        }
+        if (s != "")
+            sstr.insert(s);
+        sinh();
+    }
+    for (string x : sstr)
         cout << x << endl;
 }

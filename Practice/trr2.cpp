@@ -310,47 +310,47 @@ void PRIM(int a[][100], int u)
     return;
 }
 // 11
-int parent[1005];
-int rank[1005];
+int parentArray[1005];
+int rankArray[1005];
 struct Edge
 {
-    int src, dest, weight;
+    int source, destination, weight;
 };
-vector<Edge> edges;
+vector<Edge> edgeList;
 bool compareEdges(Edge a, Edge b)
 {
     return a.weight < b.weight;
 }
 int find(int i)
 {
-    if (parent[i] != i)
+    if (parentArray[i] != i)
     {
-        parent[i] = find(parent[i]);
+        parentArray[i] = find(parentArray[i]);
     }
-    return parent[i];
+    return parentArray[i];
 }
 void unionSet(int x, int y)
 {
     int rootX = find(x);
     int rootY = find(y);
-    if (rank[rootX] < rank[rootY])
+    if (rankArray[rootX] < rankArray[rootY])
     {
-        parent[rootX] = rootY;
+        parentArray[rootX] = rootY;
     }
-    else if (rank[rootX] > rank[rootY])
+    else if (rankArray[rootX] > rankArray[rootY])
     {
-        parent[rootY] = rootX;
+        parentArray[rootY] = rootX;
     }
     else
     {
-        parent[rootX] = rootY;
-        rank[rootY]++;
+        parentArray[rootX] = rootY;
+        rankArray[rootY]++;
     }
 }
 void KRUSKAL(int a[][])
 {
     int n = MAXN;
-    edges.clear();
+    edgeList.clear();
     for (int i = 0; i < n; i++)
     {
         for (int j = i + 1; j < n; j++)
@@ -358,24 +358,24 @@ void KRUSKAL(int a[][])
             if (a[i][j] != 0)
             {
                 Edge e;
-                e.src = i;
-                e.dest = j;
+                e.source = i;
+                e.destination = j;
                 e.weight = a[i][j];
-                edges.push_back(e);
+                edgeList.push_back(e);
             }
         }
     }
-    sort(edges.begin(), edges.end(), compareEdges);
+    sort(edgeList.begin(), edgeList.end(), compareEdges);
     for (int i = 0; i < n; i++)
     {
-        parent[i] = i;
-        rank[i] = 0;
+        parentArray[i] = i;
+        rankArray[i] = 0;
     }
     vector<Edge> result;
-    for (Edge e : edges)
+    for (Edge e : edgeList)
     {
-        int x = find(e.src);
-        int y = find(e.dest);
+        int x = find(e.source);
+        int y = find(e.destination);
         if (x != y)
         {
             result.push_back(e);
@@ -385,12 +385,13 @@ void KRUSKAL(int a[][])
     int sum = 0;
     for (Edge e : result)
     {
-        cout << e.src << " - " << e.dest << "   weight: " << e.weight
+        cout << e.source << " - " << e.destination << "   weight: " << e.weight
              << endl;
         sum += e.weight;
     }
-    cout <<”tong chi phi : “ << sum << endl;
+    cout << "total cost: " << sum << endl;
 }
+
 // 12
 #include <bits/stdc++.h>
 using namespace std;
