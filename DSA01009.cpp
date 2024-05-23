@@ -1,24 +1,21 @@
 #include <bits/stdc++.h>
 #define endl "\n"
 using namespace std;
-bool check(string s, int n)
+bool check(string a, int n, int k)
 {
-    s = 'B' + s + 'B';
-    for (int i = 0; i < s.size() - n - 1; i++)
+    int cnt = 0, res = 0;
+    for (int i = 0; i < n; i++)
     {
-        if (s[i] == 'B' && s[i + n + 1] == 'B')
-        {
-            int d = 0;
-            for (int j = i + 1; j <= i + n; j++)
-            {
-                if (s[j] == 'A')
-                    d++;
-            }
-            if (d == n)
-                return 1;
-        }
+        if (a[i] == 'A')
+            cnt++;
+        else
+            cnt = 0;
+        if (cnt > k)
+            return false;
+        if (cnt == k)
+            res++;
     }
-    return 0;
+    return res == 1;
 }
 int main()
 {
@@ -32,7 +29,7 @@ int main()
         a += 'A';
     while (1)
     {
-        if (check(a, k))
+        if (check(a, n, k))
             q.push(a);
         int ok = 0;
         for (int i = n - 1; i >= 0; i--)
