@@ -4,6 +4,7 @@ int a[1005][1005], n;
 void DFS(int u)
 {
     vs[u] = true;
+    cout << u << " ";
     for (int v = 0; v < n; v++)
     {
         if (a[u][v] && !vs[v])
